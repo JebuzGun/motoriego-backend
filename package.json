@@ -1,21 +1,22 @@
 {
-  "name": "motoriego",
-  "version": "0.0.1",
-  "description": "Proyecto motoriego",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jesús Lazo",
-  "license": "MIT",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "jwt-simple": "^0.5.1",
-    "moment": "^2.20.1",
-    "mongoose": "^5.0.3",
-    "nodemon": "^1.14.12"
-  }
+    "name": "motoriego",
+    "version": "0.0.1",
+    "description": "Proyecto motoriego",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Jesús Lazo",
+    "license": "MIT",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2",
+        "jsonwebtoken": "^8.1.1",
+        "moment": "^2.20.1",
+        "mongoose": "^5.0.3",
+        "mongoose-unique-validator": "^2.0.0",
+        "nodemon": "^1.14.12"
+    }
 }

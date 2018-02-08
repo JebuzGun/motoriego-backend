@@ -1,0 +1,1 @@
+module.exports.SEED = 'Motoriego4dA_win';
