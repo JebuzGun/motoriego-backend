@@ -6,4 +6,8 @@ const api = express.Router();
 const mdAutenticacion = require('../middlewares/auth');
 //rutas
 api.get('/', mdAutenticacion.verificaToken, CampController.getCamps);
+api.get('/camps', mdAutenticacion.verificaToken, CampController.getCamps);
+api.post('/', mdAutenticacion.verificaToken, CampController.saveCamp);
+api.put('/', mdAutenticacion.verificaToken, CampController.updateCamp);
+api.delete('/:location', mdAutenticacion.verificaToken, CampController.deleteCamp);
 module.exports = api;

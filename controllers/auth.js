@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
@@ -29,7 +30,7 @@ function login(req, res) {
             });
         } else {
             //crear un token
-            var token = jwt.sign({ usuario: user }, SEED, { expiresIn: 14400 });
+            var token = jwt.sign({ usuario: user }, SEED, { expiresIn: '10d' });
             user.password = ":)";
             return res.status(200).json({
                 ok: true,

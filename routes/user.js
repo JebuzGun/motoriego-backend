@@ -7,7 +7,7 @@ const api = express.Router();
 const mdAutenticacion = require('../middlewares/auth');
 //rutas
 api.get("/", mdAutenticacion.verificaToken, UserController.getUsers);
-api.post('/', mdAutenticacion.verificaToken, UserController.saveUser);
+api.post('/', UserController.saveUser);
 api.put('/', mdAutenticacion.verificaToken, UserController.updateUser);
 api.delete('/:mail', mdAutenticacion.verificaToken, UserController.deleteUser);
 api.post('/login', AuthController.login);

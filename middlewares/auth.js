@@ -1,3 +1,4 @@
+'use strict';
 var jwt = require('jsonwebtoken');
 var SEED = require('../config/config').SEED;
 //Verificar Token
@@ -11,6 +12,8 @@ exports.verificaToken = function(req, res, next) {
                 errors: err
             });
         }
+        decoded.usuario._id = ":(";
+        decoded.usuario.password = ":)";
         req.usuario = decoded.usuario;
         next();
     });

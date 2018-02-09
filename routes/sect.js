@@ -6,7 +6,8 @@ const api = express.Router();
 const mdAutenticacion = require('../middlewares/auth');
 //rutas
 api.get('/', mdAutenticacion.verificaToken, SectController.getSectors);
-api.post('/', mdAutenticacion.verificaToken, SectController.saveSect);
+api.get('/:location', mdAutenticacion.verificaToken, SectController.getCampSectors);
+api.post('/:location', mdAutenticacion.verificaToken, SectController.saveSect);
 api.put('/', mdAutenticacion.verificaToken, SectController.updateSect);
-api.delete('/', mdAutenticacion.verificaToken, SectController.deleteSect);
+api.delete('/:point', mdAutenticacion.verificaToken, SectController.deleteSect);
 module.exports = api;
