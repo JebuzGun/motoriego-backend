@@ -3,9 +3,12 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 const SectorSchema = Schema({
-    name: { type: String, required: [true, 'Ingrese nombre de sector'] },
-    size: { type: Number, required: false },
-    point: { type: String, unique: true, required: [true, 'Ingrese un punto de interes'] },
+    location: { type: [Number], required: [true, 'Ingrese sector'] },
+    completed: { type: Boolean },
+    finalPosition: { type: [Number] },
+    success: { type: Boolean },
+    day: { type: String },
+    hour: { type: String },
     camp: { type: Schema.ObjectId, ref: 'Camp' },
 });
 SectorSchema.plugin(uniqueValidator, { message: 'Cada sector debe tener un punto único' });

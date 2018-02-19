@@ -3,7 +3,7 @@ const Sect = require('../models/sect');
 const Camp = require('../models/camp');
 //Obtener sectores
 function getSectors(req, res) {
-    Sect.find({}, (err, sectors) => {
+    Sect.find({}, {'_id':0},(err, sectors) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando usuarios',

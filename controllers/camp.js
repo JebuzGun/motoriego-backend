@@ -3,7 +3,7 @@ const Camp = require('../models/camp');
 const User = require('../models/user');
 //Obtener predios
 function getCamps(req, res) {
-    Camp.find({}, 'name ubication').exec((err, camps) => {
+    Camp.find({}, {'id':0}).exec((err, camps) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando predios',

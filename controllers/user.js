@@ -1,9 +1,9 @@
-'use strict'
-var bcrypt = require('bcryptjs');
-var User = require('../models/user');
+'use strict';
+const bcrypt = require('bcryptjs');
+const User = require('../models/user');
 //Obtener usuarios
 function getUsers(req, res) {
-    User.find({}, 'name email').exec((err, users) => {
+    User.find({}, {'_id':0,name:'1',email:'1'}).exec((err, users) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando usuarios',
@@ -50,7 +50,7 @@ function saveUser(req, res) {
 //Actualizar usuarios
 function updateUser(req, res) {
     var body = req.body;
-    User.findOne({ email: body.email }, (err, userDB) => {
+    User.findOne({ email: body.email },(err, userDB) => {
         if (err) {
             return res.status(500).json({
                 mensaje: 'Error buscando usuario',
