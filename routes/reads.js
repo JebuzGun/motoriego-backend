@@ -6,4 +6,5 @@ const api = express.Router();
 const mdAutenticacion = require('../middlewares/auth');
 //rutas
 api.get('/',ReadController.getReads);
+api.post('/',ReadController.saveRead);
 module.exports = api;

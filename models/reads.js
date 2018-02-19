@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ReadSchema = Schema({
     client: { type: Schema.ObjectId, ref: 'User'},
-    reads: { type: String },
-    upload_at: { type: String }
+    reads: { type: Schema.Types.Mixed },
+    upload_at: { type: Date, default: Date.now }
 });
 module.exports = mongoose.model('Read',ReadSchema);

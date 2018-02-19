@@ -25,7 +25,7 @@ function getCampSectors(req, res) {
     if (campLoc) {
         Camp.findOne({ ubication: campLoc }, (err, camp) => {
             if (err) {
-                res.status(500).json({
+                return res.status(500).json({
                     mensaje: 'Error cargando sectores',
                     ok: false,
                     errors: err
