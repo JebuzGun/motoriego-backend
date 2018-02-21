@@ -98,11 +98,12 @@ function saveCamp(req, res) {
                         ok: false,
                         errors: err
                     });
+                }else{
+                    return res.status(200).json({
+                        predio: campSaved,
+                        ok: true
+                    });
                 }
-                return res.status(200).json({
-                    predio: campSaved,
-                    ok: true
-                });
             });
         });
     } else {
