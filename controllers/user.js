@@ -97,14 +97,14 @@ function deleteUser(req, res) {
             });
         }
         if (!userDB) {
-            return res.status(500).json({
+            return res.status(404).json({
                 mensaje: 'Usuario no registrado',
                 ok: false
             });
         } else {
             User.findByIdAndRemove(userDB._id, (err, userDeleted) => {
                 if (err) {
-                    return res.status(500).json({
+                    return res.status(404).json({
                         mensaje: 'Usuario no se pudo eliminar',
                         ok: false
                     });

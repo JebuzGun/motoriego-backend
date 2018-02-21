@@ -8,7 +8,7 @@ const rolesValidos = {
 };
 const usuarioSchema = new Schema({
     client: { type: String, required: [true, 'Nombre necesario'] },
-    rut: { type: Number, required: [true, 'Ingrese el rut del cliente']},
+    rut: { type: Number, unique: true ,required: [true, 'Ingrese el rut del cliente']},
     email: { type: String, unique: true, required: false },
     password: { type: String, required: [true, 'Pass necesario'] },
     role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos }
