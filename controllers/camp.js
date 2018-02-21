@@ -1,6 +1,7 @@
 'use strict';
 const Camp = require('../models/camp');
 const User = require('../models/user');
+const Sect = require('../models/sect');
 //Obtener predios
 function getCamps(req, res) {
     Camp.find({}, {'id':0}).exec((err, camps) => {
@@ -20,11 +21,39 @@ function getCamps(req, res) {
 }
 //Obtener campos de un cliente
 function getCamp(req, res) {
-    let email = req.usuario.email;
+    //let email = req.usuario.email;
     let body = req.body;
-    if (body.name && body.ubication && body.user) {
-        User.findOne({ email: email }, (err, user) => {
+    if (body.rut && body.ubication && body.user) {
+        User.findOne({ rut: body.rut }, (err, user) => {
+            if (err) {
+                res.status(500).json({
+                    mensaje: 'Error cargando predios',
+                    ok: false,
+                    errors: err
+                });
+            }
+            if(!user){
+                res.status(500).json({
+                    mensaje: 'Error cargando predios',
+                    ok: false,
+                    errors: err
+                });
+            }
             Camp.find({ usuario: user._id }, (err, camps) => {
+                if (err) {
+                    res.status(500).json({
+                        mensaje: 'Error cargando predios',
+                        ok: false,
+                        errors: err
+                    });
+                }
+                if(!camps){
+                    res.status(500).json({
+                        mensaje: 'Error cargando predios',
+                        ok: false,
+                        errors: err
+                    });
+                }
                 res.status(200).send({
                     message: 'Ingrese los datos necesarios',
                     campos: camps
@@ -32,7 +61,7 @@ function getCamp(req, res) {
             });
         });
     } else {
-        res.status(200).send({
+        res.status(400).send({
             message: 'Ingrese los datos necesarios'
         });
     }

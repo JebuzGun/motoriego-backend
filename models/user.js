@@ -7,8 +7,9 @@ const rolesValidos = {
     message: '{VALUE} no es un rol permitido'
 };
 const usuarioSchema = new Schema({
-    name: { type: String, required: [true, 'Nombre necesario'] },
-    email: { type: String, unique: true, required: [true, 'Correo necesario'] },
+    client: { type: String, required: [true, 'Nombre necesario'] },
+    rut: { type: Number, required: [true, 'Ingrese el rut del cliente']},
+    email: { type: String, unique: true, required: false },
     password: { type: String, required: [true, 'Pass necesario'] },
     role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos }
 });

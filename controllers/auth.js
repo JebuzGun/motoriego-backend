@@ -8,7 +8,7 @@ var User = require('../models/user');
 //Login
 function login(req, res) {
     let body = req.body;
-    User.findOne({ email: body.email }, (err, user) => {
+    User.findOne({ rut: body.rut },{'_id':0},(err, user) => {
         if (err) {
             return res.status(500).json({
                 mensaje: 'Error en el ingreso',
@@ -36,7 +36,6 @@ function login(req, res) {
                 ok: true,
                 usuario: user,
                 token: token,
-                id: user._id
             });
         }
     });

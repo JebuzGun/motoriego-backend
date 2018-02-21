@@ -60,7 +60,7 @@ function getCampSectors(req, res) {
 function saveSect(req, res) {
     let body = req.body;
     let location = req.params.location;
-    if (body.name && body.point && body.camp) {
+    if (body.location && body.completed && body.camp) {
         Camp.findOne({ ubication: location }, (err, camp) => {
             let sect = new Sect({
                 name: body.name,

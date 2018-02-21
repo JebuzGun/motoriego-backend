@@ -21,16 +21,17 @@ function getUsers(req, res) {
 function saveUser(req, res) {
     let user;
     let body = req.body;
-    if (body.password && body.name && body.email) {
+    if (body.password && body.rut) {
         user = new User({
-            name: body.name,
+            client: body.client,
+            rut: body.rut,
             password: bcrypt.hashSync(body.password, 10),
             email: body.email,
             role: body.role
         });
         user.save((err, userSaved) => {
             if (err) {
-                return res.status(400).json({
+                return res.status(500).json({
                     mensaje: 'Error creando usuario',
                     ok: false,
                     error: err
@@ -44,13 +45,13 @@ function saveUser(req, res) {
             }
         });
     } else {
-        res.status(200).send({ message: 'Ingrese los datos necesarios' });
+        res.status(400).send({ message: 'Ingrese los datos necesarios' });
     }
 }
-//Actualizar usuarios
+//Actualizar usuario
 function updateUser(req, res) {
     var body = req.body;
-    User.findOne({ email: body.email },(err, userDB) => {
+    User.findOne({ rut: body.rut },(err, userDB) => {
         if (err) {
             return res.status(500).json({
                 mensaje: 'Error buscando usuario',
@@ -66,6 +67,7 @@ function updateUser(req, res) {
             });
         }
         userDB.nombre = body.nombre;
+        userDB.rut = body.rut;
         userDB.email = body.email;
         userDB.role = body.role;
         userDB.save((err, userSaved) => {
@@ -84,10 +86,10 @@ function updateUser(req, res) {
         });
     });
 }
-//Eliminar usuarios
+//Eliminar usuario
 function deleteUser(req, res) {
-    let id = req.params.mail;
-    User.findOne({ email: id }, (err, userDB) => {
+    let id = req.params.rut;
+    User.findOne({ rut: id }, (err, userDB) => {
         if (err) {
             return res.status(500).json({
                 mensaje: 'Error al eliminar el usuario',
