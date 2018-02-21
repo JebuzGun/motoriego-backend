@@ -78,7 +78,7 @@ function saveCamp(req, res) {
                     errors: err
                 });
             }
-            if (!user) {
+            if (!userFind) {
                 return res.status(404).json({
                     mensaje: 'Error al guardar',
                     ok: false,
