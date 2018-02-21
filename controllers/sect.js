@@ -62,18 +62,18 @@ function saveSect(req, res) {
     let body = req.body;
     let name = body.name;
     let rut = req.params.rut;
-    if (body.location && rut) {
+    if (body.position && rut) {
         User.findOne({rut:rut},(err,userFind)=>{
             if (err) {
                 res.status(500).json({
-                    mensaje: 'Error almacenando sector',
+                    mensaje: 'Error almacenando sector 1',
                     ok: false,
                     errors: err
                 });
             }
             if(!userFind){
                 res.status(500).json({
-                    mensaje: 'Error almacenando sector',
+                    mensaje: 'Error almacenando sector 1',
                     ok: false,
                     errors: err
                 });
@@ -81,14 +81,14 @@ function saveSect(req, res) {
                 Camp.findOne({ name: name, client: userFind._id}, (err, camp) => {
                     if (err) {
                         res.status(500).json({
-                            mensaje: 'Error almacenando sector',
+                            mensaje: 'Error almacenando sector 2',
                             ok: false,
                             errors: err
                         });
                     }
                     if(!camp){
                         res.status(500).json({
-                            mensaje: 'Error almacenando sector',
+                            mensaje: 'Error almacenando sector 2',
                             ok: false,
                             errors: err
                         });
@@ -100,7 +100,7 @@ function saveSect(req, res) {
                     sect.save((err, sectSaved) => {
                         if (err) {
                             return res.status(400).json({
-                                mensaje: 'Error almacenando sector',
+                                mensaje: 'Error almacenando sector 3',
                                 ok: false,
                                 error: err
                             });
