@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 //Obtener usuarios
 function getUsers(req, res) {
-    User.find({}, {'_id':0,name:'1',email:'1'}).exec((err, users) => {
+    User.find({}, {'_id':0,'password':0}).exec((err, users) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando usuarios',
