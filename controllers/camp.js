@@ -69,7 +69,7 @@ function getCamp(req, res) {
 //Almacenar campo
 function saveCamp(req, res) {
     let body = req.body;
-    if (body.name && body.ubication) {
+    if (body.name && body.location) {
         User.findOne({ rut: body.rut }, (err, userFind) => {
             if (err) {
                 return res.status(500).json({
@@ -107,7 +107,7 @@ function saveCamp(req, res) {
     } else {
         res.status(200).send({
             message: 'Ingrese los datos necesarios',
-            usuario: email
+            ok: false
         });
     }
 }
