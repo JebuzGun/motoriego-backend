@@ -68,10 +68,9 @@ function getCamp(req, res) {
 }
 //Almacenar campo
 function saveCamp(req, res) {
-    let email = req.usuario.email;
     let body = req.body;
     if (body.name && body.ubication) {
-        User.findOne({ email: email }, (err, user) => {
+        User.findOne({ rut: body.rut }, (err, userFind) => {
             if (err) {
                 return res.status(500).json({
                     mensaje: 'Error almacenando el predio',
@@ -88,8 +87,8 @@ function saveCamp(req, res) {
             }
             let camp = new Camp({
                 name: body.name,
-                ubication: body.ubication,
-                usuario: user._id
+                location: body.location,
+                client: userFind._id
             });
             camp.save((err, campSaved) => {
                 if (err) {
@@ -99,13 +98,12 @@ function saveCamp(req, res) {
                         errors: err
                     });
                 }
-                res.status(200).json({
-                    usuario: campSaved,
+                return res.status(200).json({
+                    predio: campSaved,
                     ok: true
                 });
             });
         });
-
     } else {
         res.status(200).send({
             message: 'Ingrese los datos necesarios',
