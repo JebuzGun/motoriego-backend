@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Sect = require('../models/sect');
 //Obtener predios
 function getCamps(req, res) {
-    Camp.find({}, {'id':0}).exec((err, camps) => {
+    Camp.find({}, {'_id':0,'client':0}).exec((err, camps) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando predios',
@@ -20,11 +20,11 @@ function getCamps(req, res) {
     });
 }
 //Obtener campos de un cliente
-function getCamp(req, res) {
-    //let email = req.usuario.email;
+function getUserCamp(req, res) {
+    let rut = req.params.rut;
     let body = req.body;
     if (body.rut && body.ubication && body.user) {
-        User.findOne({ rut: body.rut }, (err, user) => {
+        User.findOne({ rut: rut }, (err, userFind) => {
             if (err) {
                 res.status(500).json({
                     mensaje: 'Error cargando predios',
@@ -32,14 +32,14 @@ function getCamp(req, res) {
                     errors: err
                 });
             }
-            if(!user){
+            if(!userFind){
                 res.status(500).json({
                     mensaje: 'Error cargando predios',
                     ok: false,
                     errors: err
                 });
             }
-            Camp.find({ usuario: user._id }, (err, camps) => {
+            Camp.find({ client: userFind._id }, (err, camps) => {
                 if (err) {
                     res.status(500).json({
                         mensaje: 'Error cargando predios',
@@ -55,7 +55,7 @@ function getCamp(req, res) {
                     });
                 }
                 res.status(200).send({
-                    message: 'Ingrese los datos necesarios',
+                    ok: true,
                     campos: camps
                 });
             });
@@ -152,7 +152,7 @@ function deleteCamp(req, res) {
 }
 module.exports = {
     getCamps,
-    getCamp,
+    getUserCamp,
     saveCamp,
     updateCamp,
     deleteCamp
