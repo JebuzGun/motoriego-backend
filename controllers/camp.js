@@ -38,7 +38,7 @@ function getUserCamp(req, res) {
                     errors: err
                 });
             }
-            Camp.find({ client: userFind._id }, (err, camps) => {
+            Camp.find({ client: userFind._id }, {'_id':0,'client':0}, (err, camps) => {
                 if (err) {
                     res.status(500).json({
                         mensaje: 'Error cargando predios',

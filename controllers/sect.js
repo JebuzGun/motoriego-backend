@@ -1,6 +1,7 @@
 'use strict';
 const Sect = require('../models/sect');
 const Camp = require('../models/camp');
+const User = require('../models/user');
 //Obtener sectores
 function getSectors(req, res) {
     Sect.find({}, {'_id':0},(err, sectors) => {
@@ -59,30 +60,60 @@ function getCampSectors(req, res) {
 //Almacenar sectores
 function saveSect(req, res) {
     let body = req.body;
-    let location = req.params.location;
-    if (body.location && body.completed && body.camp) {
-        Camp.findOne({ ubication: location }, (err, camp) => {
-            let sect = new Sect({
-                name: body.name,
-                size: body.size,
-                point: body.point,
-                camp: camp._id
-            });
-            sect.save((err, sectSaved) => {
-                if (err) {
-                    return res.status(400).json({
-                        mensaje: 'Error creando sector',
-                        ok: false,
-                        error: err
+    let name = body.name;
+    let rut = req.params.rut;
+    if (body.location && rut) {
+        User.findOne({rut:rut},(err,userFind)=>{
+            if (err) {
+                res.status(500).json({
+                    mensaje: 'Error almacenando sector',
+                    ok: false,
+                    errors: err
+                });
+            }
+            if(!userFind){
+                res.status(500).json({
+                    mensaje: 'Error almacenando sector',
+                    ok: false,
+                    errors: err
+                });
+            }else{
+                Camp.findOne({ name: name, client: userFind._id}, (err, camp) => {
+                    if (err) {
+                        res.status(500).json({
+                            mensaje: 'Error almacenando sector',
+                            ok: false,
+                            errors: err
+                        });
+                    }
+                    if(!camp){
+                        res.status(500).json({
+                            mensaje: 'Error almacenando sector',
+                            ok: false,
+                            errors: err
+                        });
+                    }
+                    let sect = new Sect({
+                        position: body.position,
+                        camp: camp._id
                     });
-                } else {
-                    res.status(201).json({
-                        sect: sectSaved,
-                        ok: true,
-                        usuarioToken: req.usuario
+                    sect.save((err, sectSaved) => {
+                        if (err) {
+                            return res.status(400).json({
+                                mensaje: 'Error almacenando sector',
+                                ok: false,
+                                error: err
+                            });
+                        } else {
+                            res.status(201).json({
+                                sect: sectSaved,
+                                ok: true,
+                                usuarioToken: req.usuario
+                            });
+                        }
                     });
-                }
-            });
+                });
+            }
         });
     } else {
         res.status(200).send({ message: 'Ingrese los datos necesarios' });
@@ -113,8 +144,8 @@ function deleteSect(req, res) {
             } else {
                 Sect.findByIdAndRemove(sect._id, (err, deletedSect) => {
                     if (err) {
-                        return res.status(400).json({
-                            mensaje: 'Error creando sector',
+                        return res.status(500).json({
+                            mensaje: 'Error elimimando sector',
                             ok: false,
                             error: err
                         });
