@@ -22,8 +22,7 @@ function getCamps(req, res) {
 //Obtener campos de un cliente
 function getUserCamp(req, res) {
     let rut = req.params.rut;
-    let body = req.body;
-    if (body.rut && body.ubication && body.user) {
+    if (rut) {
         User.findOne({ rut: rut }, (err, userFind) => {
             if (err) {
                 res.status(500).json({
@@ -62,7 +61,8 @@ function getUserCamp(req, res) {
         });
     } else {
         res.status(400).send({
-            message: 'Ingrese los datos necesarios'
+            message: 'Ingrese los datos necesarios',
+            ok: false
         });
     }
 }
