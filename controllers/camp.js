@@ -90,6 +90,7 @@ function saveCamp(req, res) {
                 location: body.location,
                 client: userFind._id
             });
+            console.log(userFind);
             camp.save((err, campSaved) => {
                 if (err) {
                     return res.status(400).json({
