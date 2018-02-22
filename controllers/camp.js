@@ -19,6 +19,7 @@ function getCamps(req, res) {
         });
     });
 }
+function save
 //Obtener campos de un cliente
 function getUserCamp(req, res) {
     let rut = req.params.rut;
@@ -38,24 +39,25 @@ function getUserCamp(req, res) {
                     errors: err
                 });
             }
-            Camp.find({ client: userFind._id }, {'_id':0,'client':0}, (err, camps) => {
-                if (err) {
-                    res.status(500).json({
-                        mensaje: 'Error cargando predios',
-                        ok: false,
-                        errors: err
-                    });
-                }
-                if(!camps){
-                    res.status(500).json({
-                        mensaje: 'Error cargando predios',
-                        ok: false,
-                        errors: err
-                    });
-                }
-                res.status(200).send({
-                    ok: true,
-                    campos: camps
+            let camps = Camp.find({ client: userFind._id }, {'_id':0,'client':0});
+                camps.populate({path: 'Sect'}).exec((err, camps) => {
+                    if (err) {
+                        res.status(500).json({
+                            mensaje: 'Error cargando predios',
+                            ok: false,
+                            errors: err
+                        });
+                    }
+                    if(!camps){
+                        res.status(500).json({
+                            mensaje: 'Error cargando predios',
+                            ok: false,
+                            errors: err
+                        });
+                    }
+                    res.status(200).send({
+                        ok: true,
+                        campos: camps
                 });
             });
         });

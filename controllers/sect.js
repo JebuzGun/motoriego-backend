@@ -21,35 +21,59 @@ function getSectors(req, res) {
 }
 //Obtener sectores de un campo
 function getCampSectors(req, res) {
-    let campLoc = req.params.location;
-    console.log(campLoc);
-    if (campLoc) {
-        Camp.findOne({ ubication: campLoc }, (err, camp) => {
+    let rut = req.params.rut;
+    let location = req.body.location;
+    if (rut) {
+        User.findOne({ rut: rut }, (err, userFind) => {
             if (err) {
                 return res.status(500).json({
                     mensaje: 'Error cargando sectores',
-                    ok: false,
-                    errors: err
+                    ok: false
                 });
             }
-            if (!camp) {
+            if (!userFind) {
                 return res.status(404).json({
                     mensaje: 'Error al cargar sectores',
-                    ok: false,
-                    errors: err
+                    ok: false
                 });
             }
-            Sect.find({ camp: camp._id }, (err, sectors) => {
+            Camp.findOne({location: location, client: userFind._id},{},(err, campFind)=>{
                 if (err) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         mensaje: 'Error cargando sectores',
-                        ok: false,
-                        errors: err
+                        ok: false
                     });
                 }
-                res.status(200).send({
-                    ok: true,
-                    sectors: sectors
+                if (!userFind) {
+                    return res.status(404).json({
+                        mensaje: 'Error al cargar sectores',
+                        ok: false
+                    });
+                }
+                Sect.find({ camp: camp._id }, (err, sectors) => {
+                    if (err) {
+                        return res.status(500).json({
+                            mensaje: 'Error cargando sectores',
+                            ok: false
+                        });
+                    }
+                    if (!userFind) {
+                        return res.status(404).json({
+                            mensaje: 'Error al cargar sectores',
+                            ok: false
+                        });
+                    }
+                    if (err) {
+                        res.status(500).json({
+                            mensaje: 'Error cargando sectores',
+                            ok: false,
+                            errors: err
+                        });
+                    }
+                    res.status(200).send({
+                        ok: true,
+                        sectors: sectors
+                    });
                 });
             });
         });
@@ -66,14 +90,14 @@ function saveSect(req, res) {
         User.findOne({rut:rut},(err,userFind)=>{
             if (err) {
                 res.status(500).json({
-                    mensaje: 'Error almacenando sector 1',
+                    mensaje: 'Error almacenando sector',
                     ok: false,
                     errors: err
                 });
             }
             if(!userFind){
                 res.status(500).json({
-                    mensaje: 'Error almacenando sector 1',
+                    mensaje: 'Error almacenando sector',
                     ok: false,
                     errors: err
                 });
@@ -81,14 +105,14 @@ function saveSect(req, res) {
                 Camp.findOne({ name: name, client: userFind._id}, (err, camp) => {
                     if (err) {
                         res.status(500).json({
-                            mensaje: 'Error almacenando sector 2',
+                            mensaje: 'Error almacenando sector',
                             ok: false,
                             errors: err
                         });
                     }
                     if(!camp){
                         res.status(500).json({
-                            mensaje: 'Error almacenando sector 2',
+                            mensaje: 'Error almacenando sector',
                             ok: false,
                             errors: err
                         });
@@ -100,7 +124,7 @@ function saveSect(req, res) {
                     sect.save((err, sectSaved) => {
                         if (err) {
                             return res.status(400).json({
-                                mensaje: 'Error almacenando sector 3',
+                                mensaje: 'Error almacenando sector',
                                 ok: false,
                                 error: err
                             });
@@ -108,7 +132,6 @@ function saveSect(req, res) {
                             res.status(201).json({
                                 sect: sectSaved,
                                 ok: true,
-                                usuarioToken: req.usuario
                             });
                         }
                     });
@@ -152,8 +175,7 @@ function deleteSect(req, res) {
                     } else {
                         res.status(201).json({
                             sect: deletedSect,
-                            ok: true,
-                            usuarioToken: req.usuario
+                            ok: true
                         });
                     }
                 });
