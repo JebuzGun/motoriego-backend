@@ -50,14 +50,14 @@ function getCampSectors(req, res) {
                         ok: false
                     });
                 }
-                Sect.find({ camp: camp._id }, (err, sectors) => {
+                Sect.find({ camp: campFind._id }, (err, sectors) => {
                     if (err) {
                         return res.status(500).json({
                             mensaje: 'Error cargando sectores',
                             ok: false
                         });
                     }
-                    if (!userFind) {
+                    if (!sectors) {
                         return res.status(404).json({
                             mensaje: 'Error al cargar sectores',
                             ok: false
