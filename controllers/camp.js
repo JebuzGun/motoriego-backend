@@ -120,7 +120,7 @@ function saveCamp(req, res) {
 
 //Actualizar campo
 function updateCamp(req, res) {
-    if (req.params.rut && req.body.name) {
+    if (req.params.rut && req.body.camps) {
         let rut = req.params.rut;
         let body = req.body;
         User.findOne({rut: rut}, {'_id': 0}, (err, userFinded) => {
@@ -137,9 +137,7 @@ function updateCamp(req, res) {
                 });
             } else {
                 Camp.findOne({name: body.name, client: userFinded._id},{'_id':0}, (err, campFinded)=>{
-                    campFinded.name = body.name;
-                    campFinded.location = body.location;
-                    campFinded.client = body.client;
+                    campFinded.client = userFinded._id;
                     campFinded.camps = body.camps;
                     campFinded.save((err, updCamp)=>{
                         if (err) {
