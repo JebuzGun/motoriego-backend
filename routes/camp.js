@@ -8,6 +8,6 @@ const mdAutenticacion = require('../middlewares/auth');
 api.get('/', mdAutenticacion.verificaToken, CampController.getCamps);
 api.get('/:rut', CampController.getUserCamp);
 api.post('/', mdAutenticacion.verificaToken, CampController.saveCamp);
-api.put('/', mdAutenticacion.verificaToken, CampController.updateCamp);
+api.put('/:rut', mdAutenticacion.verificaToken, CampController.updateCamp);
 api.delete('/:location', mdAutenticacion.verificaToken, CampController.deleteCamp);
 module.exports = api;
