@@ -19,7 +19,6 @@ function getCamps(req, res) {
         });
     });
 }
-function save
 //Obtener campos de un cliente
 function getUserCamp(req, res) {
     let rut = req.params.rut;
