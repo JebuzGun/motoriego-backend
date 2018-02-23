@@ -137,7 +137,7 @@ function updateCamp(req, res) {
                     ok: false
                 });
             } else {
-                Camp.findOne({name: body.name, client: userFinded._id},{'_id':0}, (err, campFinded)=>{
+                Camp.findOne({name: body.name, client: userFinded._id},(err, campFinded)=>{
                     if (err) {
                         return res.status(500).json({
                             mensaje: 'Error al actualizar datos',
