@@ -153,7 +153,6 @@ function updateCamp(req, res) {
                             camp: campFinded
                         });
                     }else{
-                        campFinded.client = userFinded._id;
                         campFinded.camps = body.camps;
                         campFinded.save((err, updCamp)=>{
                             if (err) {
