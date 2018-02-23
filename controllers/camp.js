@@ -144,9 +144,9 @@ function updateCamp(req, res) {
                             ok: false,
                         });
                     }
-                    if (!campFinded || campFinded === null) {
+                    if (!campFinded) {
                         return res.status(404).json({
-                            mensaje: 'Usuario no registrado',
+                            mensaje: 'Campo no encontrado',
                             ok: false
                         });
                     }else{
