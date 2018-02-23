@@ -4,7 +4,7 @@ const Camp = require('../models/camp');
 const User = require('../models/user');
 //Obtener sectores
 function getSectors(req, res) {
-    Sect.find({}, {'_id':0},(err, sectors) => {
+    Sect.find({}, {},(err, sectors) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando usuarios',
