@@ -42,24 +42,29 @@ function getUserCamp(req, res) {
                 });
             }
             let camps = Camp.find({client: userFind._id}, {'_id': 0, 'client': 0});
-            camps.populate({path: 'camps'}).exec((err, userCamps) => {
+            camps.exec((err, userCamps) => {
                 if (err) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         mensaje: 'Error cargando predios',
                         ok: false,
                         errors: err
                     });
                 }
                 if (!userCamps) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         mensaje: 'Error cargando predios',
                         ok: false,
                         errors: err
                     });
                 }
+                let array=[];
+                for(let i = 0; userCamps.campos.length<i;i++){
+                    array.push(userCamps.campos[i]);
+                }
                 res.status(200).send({
                     ok: true,
-                    campos: userCamps
+                    campos: userCamps,
+                    demo: array
                 });
             });
         });
