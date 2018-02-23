@@ -144,7 +144,7 @@ function updateCamp(req, res) {
                             ok: false,
                         });
                     }
-                    if (!userFinded || userFinded === null) {
+                    if (!campFinded || campFinded === null) {
                         return res.status(404).json({
                             mensaje: 'Usuario no registrado',
                             ok: false
