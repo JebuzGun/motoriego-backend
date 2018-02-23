@@ -124,7 +124,7 @@ function updateCamp(req, res) {
     if (req.params.rut && req.body.camps && req.body.name) {
         let rut = req.params.rut;
         let body = req.body;
-        User.findOne({rut: rut}, {'_id': 0}, (err, userFinded) => {
+        User.findOne({rut: rut}, (err, userFinded) => {
             if (err) {
                 return res.status(500).json({
                     mensaje: 'Error al actualizar datos',
