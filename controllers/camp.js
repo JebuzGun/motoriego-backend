@@ -121,7 +121,7 @@ function saveCamp(req, res) {
 
 //Actualizar campo
 function updateCamp(req, res) {
-    if (req.params.rut && req.body.camps) {
+    if (req.params.rut && req.body.camps && body.name) {
         let rut = req.params.rut;
         let body = req.body;
         User.findOne({rut: rut}, {'_id': 0}, (err, userFinded) => {

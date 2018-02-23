@@ -24,7 +24,7 @@ function getSectors(req, res) {
 function getCampSectors(req, res) {
     let rut = req.params.rut;
     let location = req.body.location;
-    if (rut) {
+    if (rut && location) {
         User.findOne({ rut: rut }, (err, userFind) => {
             if (err) {
                 return res.status(500).json({
@@ -45,7 +45,7 @@ function getCampSectors(req, res) {
                         ok: false
                     });
                 }
-                if (!userFind) {
+                if (!campFind) {
                     return res.status(404).json({
                         mensaje: 'Error al cargar sectores',
                         ok: false
