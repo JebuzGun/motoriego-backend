@@ -163,10 +163,18 @@ function updateCamp(req, res) {
                                     errors: err
                                 });
                             }
-                            res.status(200).json({
-                                predio: updCamp,
-                                ok: true
-                            });
+                            if (!updCamp) {
+                                return res.status(400).json({
+                                    mensaje: 'Campo no actualizado',
+                                    ok: false,
+                                    errors: err
+                                });
+                            }else{
+                                return res.status(200).json({
+                                    predio: updCamp,
+                                    ok: true
+                                });
+                            }
                         });
                     }
                 });
