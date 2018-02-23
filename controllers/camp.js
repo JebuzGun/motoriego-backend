@@ -42,7 +42,7 @@ function getUserCamp(req, res) {
                 });
             }
             let camps = Camp.find({client: userFind._id}, {'_id': 0, 'client': 0});
-            camps.populate({path: 'Sect'}).exec((err, userCamps) => {
+            camps.populate({path: 'camps'}).exec((err, userCamps) => {
                 if (err) {
                     res.status(500).json({
                         mensaje: 'Error cargando predios',
