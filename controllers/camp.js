@@ -138,21 +138,34 @@ function updateCamp(req, res) {
                 });
             } else {
                 Camp.findOne({name: body.name, client: userFinded._id},{'_id':0}, (err, campFinded)=>{
-                    campFinded.client = userFinded._id;
-                    campFinded.camps = body.camps;
-                    campFinded.save((err, updCamp)=>{
-                        if (err) {
-                            return res.status(400).json({
-                                mensaje: 'Campo no actualizado',
-                                ok: false,
-                                errors: err
-                            });
-                        }
-                        res.status(200).json({
-                            predio: updCamp,
-                            ok: true
+                    if (err) {
+                        return res.status(500).json({
+                            mensaje: 'Error al actualizar datos',
+                            ok: false,
                         });
-                    });
+                    }
+                    if (!userFinded) {
+                        return res.status(404).json({
+                            mensaje: 'Usuario no registrado',
+                            ok: false
+                        });
+                    }else{
+                        campFinded.client = userFinded._id;
+                        campFinded.camps = body.camps;
+                        campFinded.save((err, updCamp)=>{
+                            if (err) {
+                                return res.status(400).json({
+                                    mensaje: 'Campo no actualizado',
+                                    ok: false,
+                                    errors: err
+                                });
+                            }
+                            res.status(200).json({
+                                predio: updCamp,
+                                ok: true
+                            });
+                        });
+                    }
                 });
             }
         });
