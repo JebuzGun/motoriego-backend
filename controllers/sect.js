@@ -5,7 +5,7 @@ const User = require('../models/user');
 //Obtener sectores
 function getSectors(req, res) {
     let sect = Sect.find({}, {});
-    sect.populate({path: 'camp'}).exec(err, sectors => {
+    sect.populate({path: 'camp'}).exec((err, sectors) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando usuarios',
