@@ -58,9 +58,9 @@ function getUserCamp(req, res) {
                     });
                 }
                 let array=[];
-                for(let i = 0; userCamps.campos.length<i;i++){
+/*                for(let i = 0; userCamps.campos.length<i;i++){
                     array.push(userCamps.campos[i]);
-                }
+                }*/
                 res.status(200).send({
                     ok: true,
                     campos: userCamps,
