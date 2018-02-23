@@ -5,7 +5,8 @@ const Sect = require('../models/sect');
 
 //Obtener predios
 function getCamps(req, res) {
-    Camp.find({}, {'_id': 0, 'client': 0}).exec((err, camps) => {
+    let camp = Camp.find({}, {'_id': 0, 'client': 0});
+    camp.populate({path: 'Camp'}).exec((err, camps) => {
         if (err) {
             res.status(500).json({
                 mensaje: 'Error cargando predios',
