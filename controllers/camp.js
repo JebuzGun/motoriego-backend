@@ -147,7 +147,10 @@ function updateCamp(req, res) {
                     if (!campFinded) {
                         return res.status(404).json({
                             mensaje: 'Campo no encontrado',
-                            ok: false
+                            ok: false,
+                            nombre: body.name,
+                            user: userFinded,
+                            camp: campFinded
                         });
                     }else{
                         campFinded.client = userFinded._id;
